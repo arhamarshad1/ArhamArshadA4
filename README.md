@@ -1,4 +1,6 @@
-# Using MySQL with Node and React JS
+# Assignment 2 USINF REST API Service
+
+## The following is the setup to the project:
 
 This tutorial uses the same project files from node_react_mongodb_tutorial, and modified to use with MySQL database instead of MongoDB.
 
@@ -22,13 +24,6 @@ mysql_secure_installation
 Start up the MySQL server
 ```javascript
 brew services start mysql@5.7
-```
-
-Other useful commands:
-```javascript
-brew services restart mysql@5.7
-brew services list
-brew services cleanup
 ```
 
 Install MySQL as a package dependency inside of the backend folder
