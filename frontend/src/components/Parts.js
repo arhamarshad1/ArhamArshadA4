@@ -1,7 +1,7 @@
 /*
 ARHAM ARSHAD
 B00768939
-CSCI 4140 - Assignment 2 
+CSCI 4140 - Assignment 3 
 
 Code adapted from: https://github.com/codrkai/node_react_mysql_db_tutorial
 */
