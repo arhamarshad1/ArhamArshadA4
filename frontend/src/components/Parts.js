@@ -28,7 +28,6 @@ function Parts() {
                 items.map(item => (
                     <div class="column padding">
                         <div class="alert alert-info rounded-pill">
-                            <h5>Part Number:</h5><i>{item.partNo939} </i><br></br>
                             <h5>Part Name:</h5><i>{item.partName939}</i><br></br>
                             <h5>Part Description:</h5><i> {item.partDescription939}</i><br></br>
                             <h5>Part Price:</h5><i>${item.currentPrice939}</i>

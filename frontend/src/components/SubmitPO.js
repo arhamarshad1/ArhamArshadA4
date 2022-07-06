@@ -1,7 +1,7 @@
 /*
 ARHAM ARSHAD
 B00768939
-CSCI 4140 - Assignment 2 
+CSCI 4140 - Assignment 3 
 
 Code adapted from: https://github.com/codrkai/node_react_mysql_db_tutorial
 */
@@ -15,7 +15,7 @@ function SubmitPO() {
     const [items, setItems] = useState([]);
 
     const fetchItems = async () => {
-        const data = await fetch('/getParts');
+        const data = await fetch('/getPartsWithLowestPrice');
         const items = await data.json();
         setItems(items);
     };
@@ -41,7 +41,7 @@ function SubmitPO() {
                             <br></br>
                             <label>Part Prices:</label>&nbsp;
                             {items.map(item => (        
-                            <h6 style={{fontWeight: 'bold'}}>{item.partName939} - ${item.currentPrice939}</h6>))}
+                            <h6 style={{fontWeight: 'bold'}}>{item.partName939} - ${item.CurrentPrice}</h6>))}
                             <br></br>
                             <input type="submit" value="Submit" class="btn btn-primary mb-1" onClick={()=>{ alert('Purchase Order Successfully submitted'); }}/>
                         </div> }
