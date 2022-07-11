@@ -31,9 +31,9 @@ router.get('/getPartsWithLowestPrice', async (req, res) => {
         if (err) throw err;
 
         try {
-            const qry = `SELECT partName939,partDescription939,MIN(currentPrice939) AS 'CurrentPrice'
+            const qry = `SELECT partName939,partDescription939, Availability, MIN(currentPrice939) AS 'CurrentPrice'
             FROM(
-               SELECT partName939,partDescription939,currentPrice939 FROM CompX_Parts939 UNION SELECT partName939,partDescription939,currentPrice939 FROM CompY_Parts939
+               SELECT partName939,partDescription939,Availability,currentPrice939 FROM CompX_Parts939 UNION SELECT partName939,partDescription939,Availability,currentPrice939 FROM CompY_Parts939
             ) as subQuery
             GROUP BY partName939
             ORDER BY partName939;`;

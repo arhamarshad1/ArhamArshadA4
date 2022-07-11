@@ -37,7 +37,7 @@ function SubmitPO() {
                             <label>Requested Quantity:</label><input type="text" name="reqQuantity" class="form-control"/><br></br>
                             <label>Quantity in stock:</label>&nbsp;
                             {items.map(item => (        
-                            <h6 style={{fontWeight: 'bold'}}>{item.partName939}- {item.QoH939} Available</h6>))}
+                            <h6 style={{fontWeight: 'bold'}}>{item.partName939}- {item.QoH939} {item.Availability}</h6>))}
                             <br></br>
                             <label>Part Prices:</label>&nbsp;
                             {items.map(item => (        
