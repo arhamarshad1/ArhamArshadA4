@@ -1,4 +1,4 @@
-# Assignment 2 USING REST API Service
+# Assignment # USING REST API Service
 
 ## The following is the setup to the project:
 
