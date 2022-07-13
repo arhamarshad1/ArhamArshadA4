@@ -32,10 +32,10 @@ function ListPO() {
                     </div>
                 </form> 
                 <br></br>
-                {items.filter(item=>item.Client939_clientID939.toString() === (search||'')).map(item => (
+                {items.filter(item=>item.CompX_Client939_clientID939.toString() === (search||'')).map(item => (
                      <div class="column padding">
                          <div class="alert alert-info rounded-pill" style={{backgroundColor: 'lightgrey'}}>
-                             <h5>Client ID Number:</h5><i>{item.Client939_clientID939} </i><br></br>
+                             <h5>Client ID Number:</h5><i>{item.CompX_Client939_clientID939} </i><br></br>
                              <h5>Purchase Order Number:</h5><i>{item.poNumber939} </i><br></br>
                              <h5>Purchase Order Date:</h5><i>{item.datePO939}</i><br></br>
                              <h5>Status of Purchase Order:</h5><i>{item.status939}</i><br></br>

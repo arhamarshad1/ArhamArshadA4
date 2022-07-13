@@ -48,40 +48,40 @@ router.get('/getPartsWithLowestPrice', async (req, res) => {
         }
     });
 });
-// router.get('/getPO', async (req, res) => {
-//     pool.getConnection( (err, conn) => {
-//         if (err) throw err;
+router.get('/getPO', async (req, res) => {
+    pool.getConnection( (err, conn) => {
+        if (err) throw err;
 
-//         try {
-//             const qry = `SELECT * FROM \`PO's939\``;
-//             conn.query(qry, (err, result) => {
-//                 conn.release();
-//                 if (err) throw err;
-//                 res.send(JSON.stringify(result));
-//             });
-//         } catch (err) {
-//             console.log(err);
-//             res.end();
-//         }
-//     });
-// });
-// router.get('/listPoWithLines', async (req, res) => {
-//     pool.getConnection( (err, conn) => {
-//         if (err) throw err;
+        try {
+            const qry = `SELECT * FROM CompX_POs939 UNION SELECT * FROM CompY_POs939`;
+            conn.query(qry, (err, result) => {
+                conn.release();
+                if (err) throw err;
+                res.send(JSON.stringify(result));
+            });
+        } catch (err) {
+            console.log(err);
+            res.end();
+        }
+    });
+});
+router.get('/listPoWithLines', async (req, res) => {
+    pool.getConnection( (err, conn) => {
+        if (err) throw err;
 
-//         try {
-//             const qry = `SELECT * FROM \`PO's939\` JOIN Lines939 ON poNumber939 = \`PO's939_poNumber939\` JOIN Parts939 ON Parts939_partNo939 = partNo939`;
-//             conn.query(qry, (err, result) => {
-//                 conn.release();
-//                 if (err) throw err;
-//                 res.send(JSON.stringify(result));
-//             });
-//         } catch (err) {
-//             console.log(err);
-//             res.end();
-//         }
-//     });
-// });
+        try {
+            const qry = `SELECT * FROM (CompX_POs939 JOIN CompX_Lines939 ON poNumber939 = CompX_POs939_poNumber939 JOIN CompX_Parts939 ON partNo939 = CompX_Parts939_partNo939) UNION SELECT * FROM (CompY_POs939 JOIN CompY_Lines939 ON poNumber939 = CompY_POs939_poNumber939 JOIN CompY_Parts939 ON partNo939 = CompY_Parts939_partNo939)`;
+            conn.query(qry, (err, result) => {
+                conn.release();
+                if (err) throw err;
+                res.send(JSON.stringify(result));
+            });
+        } catch (err) {
+            console.log(err);
+            res.end();
+        }
+    });
+});
 
 router.post('/submitPO', async (req, res) => {
     const clientID = req.body.clientID;
