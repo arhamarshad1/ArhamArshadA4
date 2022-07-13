@@ -30,7 +30,7 @@ function Parts() {
                         <div class="alert alert-info rounded-pill">
                             <h5>Part Name:</h5><i>{item.partName939}</i><br></br>
                             <h5>Part Description:</h5><i> {item.partDescription939}</i><br></br>
-                            <h5>Part Price:</h5><i>${item.currentPrice939}</i>
+                            <h5>Part Price:</h5><i>${item.CurrentPrice}</i>
                             </div>
                         </div>   
                 ))
