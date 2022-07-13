@@ -31,12 +31,24 @@ router.get('/getPartsWithLowestPrice', async (req, res) => {
         if (err) throw err;
 
         try {
-            const qry = `SELECT partName939,partDescription939, Availability, MIN(currentPrice939) AS 'CurrentPrice'
-            FROM(
-               SELECT partName939,partDescription939,Availability,currentPrice939 FROM CompX_Parts939 UNION SELECT partName939,partDescription939,Availability,currentPrice939 FROM CompY_Parts939
-            ) as subQuery
-            GROUP BY partName939
-            ORDER BY partName939;`;
+            const qry = `SELECT partName939,partDescription939, QoH939, Availability, MIN(currentPrice939) AS 'CurrentPrice' FROM( SELECT partName939,partDescription939, QoH939, Availability,currentPrice939 FROM CompX_Parts939 UNION SELECT partName939,partDescription939, QoH939, Availability,currentPrice939 FROM CompY_Parts939 ) as subQuery GROUP BY partName939 ORDER BY partName939`;
+            conn.query(qry, (err, result) => {
+                conn.release();
+                if (err) throw err;
+                res.send(JSON.stringify(result));
+            });
+        } catch (err) {
+            console.log(err);
+            res.end();
+        }
+    });
+});
+router.get('/validateClient', async (req, res) => {
+    pool.getConnection( (err, conn) => {
+        if (err) throw err;
+
+        try {
+            const qry = `SELECT * FROM CompZ_Client939;`;
             conn.query(qry, (err, result) => {
                 conn.release();
                 if (err) throw err;
@@ -53,7 +65,7 @@ router.get('/getPO', async (req, res) => {
         if (err) throw err;
 
         try {
-            const qry = `SELECT * FROM CompX_POs939 UNION SELECT * FROM CompY_POs939`;
+            const qry = `SELECT * FROM CompX_POs939 UNION SELECT * FROM CompY_POs939 UNION SELECT * FROM CompZ_POs939`;
             conn.query(qry, (err, result) => {
                 conn.release();
                 if (err) throw err;
