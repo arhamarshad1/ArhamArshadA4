@@ -30,7 +30,7 @@ function SubmitPO() {
                             <label>Name:</label><input type="text" name="clientName" class="form-control"/><br></br>
                             <label>Client ID:</label><input type="text" name="clientID" class="form-control"/><br></br>
                             <label>Part:</label>&nbsp;<br></br>
-                            <select name='partName' multiple style={{width: '200px'}} >
+                            <select name='partName' multiple style={{width: '300px'}} >
                             {items.map(item => (        
                             <option>{item.partName939}</option>))}
                             </select><br></br>

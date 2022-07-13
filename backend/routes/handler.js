@@ -89,48 +89,70 @@ router.post('/submitPO', async (req, res) => {
     const partName = req.body.partName;
     let getPO = 0;
     let getPartNo = 0;
+    let poNumberX = 0;
 
     pool.getConnection( (err, conn) => {
         if (err) throw err;
 
-        const qry = `INSERT INTO CompZ_POs939(datePO939, status939, CompZ_Client939_clientID939, quantity939) VALUES(NOW(),'Processing',?,?)`;
+        const qry = `INSERT INTO CompZ_POs939 (datePO939, status939, CompZ_Client939_clientID939, quantity939) VALUES(NOW(),'Processing',?,?)`;
         conn.query(qry, [clientID, quantity], (err, result) => {
             if (err) throw err;
+            console.log('Verififed!');
+        });
+        const qryx = `INSERT INTO CompX_POs939 (datePO939, status939, CompX_Client939_clientID939, quantity939) VALUES(NOW(),'Processing',7,?)`;
+        conn.query(qryx, [quantity], (err, result) => {
+            if (err) throw err;
+            console.log('Verififed!');
         });
 
-        const qry2 = `SELECT poNumber939 FROM CompZ_POs939 WHERE CompZ_Client939_clientID939 =`+clientID;
-        conn.query(qry2, (err, result1) => {
+        const qryY = `INSERT INTO CompY_POs939 (datePO939, status939, CompY_Client939_clientID939, quantity939) VALUES(NOW(),'Processing',4,?)`;
+        conn.query(qryY, [quantity], (err, result) => {
+            if (err) throw err;
+            console.log('Verififed!');
+        });
+            //handle lines for Company X and check if part exists
+            JSON.parse(JSON.stringify(partName)).forEach(part => {
+            const partNumber = `SELECT partNo939 FROM CompX_Parts939 WHERE partName939 =`+"'"+part+"'";
+            conn.query(partNumber, (err, result2) => {
+                if (err) throw err;
+                getPartNo = JSON.stringify(result2);
+                JSON.parse(getPartNo).forEach(number => {
+                const qryPOnumX = `SELECT poNumber939 FROM CompX_POs939 WHERE CompX_Client939_clientID939 = 7`;
+                conn.query(qryPOnumX, (err, result4) => {
+                    if (err) throw err;
+                    poNumberX = JSON.stringify(result4);
+                    JSON.parse(poNumberX).forEach(poX => {
+                        const checkPart = `INSERT INTO CompX_Lines939(qty939,CompX_POs939_poNumber939,CompX_Parts939_partNo939) VALUES(?, ?, ?)`;
+                        conn.query(checkPart, [quantity,poX.poNumber939,number.partNo939], (err, result3) => {
+                        if (err) throw err;
+                })
+            })
+        })     
+        //end
+            const qry2 = `SELECT poNumber939 FROM CompZ_POs939 WHERE CompZ_Client939_clientID939 =`+clientID;
+            conn.query(qry2, (err, result1) => {
             if (err) throw err;
             getPO = JSON.stringify(result1);
-            console.log(err);
             JSON.parse(getPO).forEach(element => {
-            
-            //start
-            partName.forEach(eachPart => {
-            const qry3 = `SELECT partNo939 FROM CompX_Parts939 WHERE partName939 =` + "'" + eachPart + "' " + `UNION SELECT partNo939 FROM CompY_Parts939 WHERE partName939 =` + "'" + eachPart + "'";
-            conn.query(qry3, (err, result2) => {
-            if (err) throw err;
-            getPartNo = JSON.stringify(result2);
-            
-            JSON.parse(getPartNo).forEach(item => {
             const qry4 = `INSERT INTO CompZ_Lines939 (CompZ_POs939_poNumber939, qty939, priceOrdered939) VALUES(?, ?, 19.99)`;
-            //conn.query(qry4, [element.poNumber939, item.partNo939, quantity], (err, result3) => {
-            conn.query(qry4, [element.poNumber939, quantity], (err, result3) => {
-
+            conn.query(qry4, [element.poNumber939, quantity], (err, result4) => {
             if (err) throw err;
-            console.log('Purchase Order Submitted!');
-        });
-        });
-        });
+            
     }
         //end
+         
         )});
-            conn.release();
+    });
+});
+});
+            
         });
+        conn.release();
+    });
 
         res.redirect('http://localhost:3000/ListPO');
         res.end();
     });
-});
+
 
 module.exports = router;

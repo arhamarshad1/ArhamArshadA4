@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `aarshad`.`CompZ_Lines939` (
   `qty939` INT NOT NULL,
   `priceOrdered939` INT NOT NULL,
   `CompZ_POs939_poNumber939` INT NOT NULL,
-  PRIMARY KEY (`CompZ_POs939_poNumber939`),
+  PRIMARY KEY (`lineNo939`),
   UNIQUE INDEX `lineNo939_UNIQUE` (`lineNo939` ASC),
   INDEX `fk_CompZ_Lines939_CompZ_POs9391_idx` (`CompZ_POs939_poNumber939` ASC),
   CONSTRAINT `fk_CompZ_Lines939_CompZ_POs9391`
